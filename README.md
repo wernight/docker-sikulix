@@ -33,6 +33,8 @@ Note: Here we mounted current directory as `/code` so you may store your scripts
 
 #### Run headless
 
+**HEADLESS PROBABLY WON'T WORK AS OF CURRENT STATE - YOU'LL HAVE TO FIDDLE WITH IT**
+
 First you need to run a X11 program, for example you may run *Chromium* using *Xvfb* (but you may as well run *Android* the same way):
 
     $ docker run --rm --name chromium -v /tmp/.X11-unix -it markadams/chromium-xvfb xvfb-chromium
