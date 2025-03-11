@@ -1,8 +1,6 @@
-[![](https://badge.imagelayers.io/wernight/sikulix:latest.svg)](https://imagelayers.io/?images=wernight/sikulix:latest 'Get your own badge on imagelayers.io')
-
 **[SikuliX](http://www.sikulix.com/)** (previously known as *Sikuli*) automates anything you see on the screen. It uses image recognition powered by [OpenCV](http://opencv.org/) to identify and control GUI components. This is handy in cases when there is no easy access to a GUI's internals or the source code of the application or web page you want to act on.
 
-You want to automate some repetetive tasks in:
+You want to automate some repetitive tasks in:
 
   - daily usage of applications or web pages
   - playing games
@@ -11,7 +9,7 @@ You want to automate some repetetive tasks in:
   - make/run a demo or training material live
 
 
-### Feature of this Dockerized image
+## Usage
 
 Contains latest official **SikuliX** inside a container based on **KasmVNC**.
 
@@ -40,11 +38,11 @@ Comes preinstalled with:
   - **scrcpy** (and ADB) to remote control an Android device:
      1. Enable USB Debugging (in Developer Options, tap "Build number" 7 times in Settings → About Phone).
      2. Either:
-          - [Lower latency] Start with additional arguments like: `--privileged --device /dev/bus/usb:/dev/bus/usb --security-opt seccomp=unconfined --security-opt label=disable`.
+          - [Lower latency] Start with additional Docker argument `--device /dev/bus/usb:/dev/bus/usb` (if it fails try `--privileged --security-opt seccomp=unconfined --security-opt label=disable`).
           - [Less permissions] Run `adb tcpip 555a && adb connect <DEVICE_IP>:55555`.
-     3. From within the container, run: `scrcpy` (possibly preceeded by `adb connect <DEVICE_IP>:5555`).
+     3. From within the container, run: `scrcpy --stay-awake  --turn-screen-off` (possibly preceeded by `adb connect <DEVICE_IP>:5555`).
 
-#### Run advanced/headless
+### Run advanced/headless
 
 **HEADLESS PROBABLY WON'T WORK AS OF CURRENT STATE - YOU'LL HAVE TO FIDDLE WITH IT**
 
@@ -69,6 +67,6 @@ Keep in mind that to forward X you'll need:
 Note: Here we run as `root` to make it simpler, but you should avoid it (for security). Add `--user` flag and run as any user you want, like any random integer in [2000-32000] as long as that user has read access to your mounted files, and it's the same as the one running X11 (i.e. Xvfb).
 
 
-### Feedbacks
+## Feedbacks
 
 Having more issues? [Report a bug on GitHub](https://github.com/wernight/docker-sikulix/issues).

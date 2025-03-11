@@ -44,6 +44,7 @@ RUN set -x \
 RUN set -x \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
+        adb \
         scrcpy \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/*
