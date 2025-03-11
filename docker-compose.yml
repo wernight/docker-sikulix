@@ -1,0 +1,11 @@
+services:
+  latest:
+    image: docker.io/wernight/sikulix:latest
+    build:
+      context: latest
+    ports:
+      - 3000:3000
+# nightly:
+#   image: docker.io/wernight/sikulix:nightly
+#   build:
+#     context: nightly
