@@ -67,6 +67,15 @@ Keep in mind that to forward X you'll need:
 Note: Here we run as `root` to make it simpler, but you should avoid it (for security). Add `--user` flag and run as any user you want, like any random integer in [2000-32000] as long as that user has read access to your mounted files, and it's the same as the one running X11 (i.e. Xvfb).
 
 
+## Tips
+
+  - Middle click the title bar to switch to the app under the current window (especially useful when maximized).
+  - Right click an empty space on the desktop to start the browser or other applications.
+  - Avoid scaling KasmVNC window beyond 1280x768 as screenshots will get cropped.
+  - Avoid using manual naming in SikuliX (pop up won't show up after the first time).
+  - Change the screenshot shortcut (default is Ctrl-Shift-2) in SikuliX preferences to something like Ctrl-Shift-S.
+
+
 ## Feedbacks
 
 Having more issues? [Report a bug on GitHub](https://github.com/wernight/docker-sikulix/issues).
