@@ -15,7 +15,7 @@ Contains latest official **SikuliX** inside a container based on **KasmVNC**.
 
 Simplest usage is:
 
-    $ docker run --rm -it -p 3000:3000 wernight/sikulix
+    $ docker run --name sikulix --rm -it -p 3000:3000 -v $PWD/config:/config wernight/sikulix
 
 Once started, open http://localhost:3000 to access the UI.
 
