@@ -19,6 +19,8 @@ Simplest usage is:
 
 Once started, open http://localhost:3000 to access the UI.
 
+Tip: After resizing the browser window (especially when elarging it), restart SikuliX so that it takes the entire screen area.
+
 See [SikuliX official documentation](https://sikulix.github.io/docs) for the scripting language.
 
 It's based on [LinuxServer.io docker-baseimage-kasmvnc](https://github.com/linuxserver/docker-baseimage-kasmvnc);

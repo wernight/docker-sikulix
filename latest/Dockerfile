@@ -49,4 +49,8 @@ RUN set -x \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/*
 
+# When using SikuliX we often swap betwen apps.
+# It's easier without auto-fullscreen.
+ENV NO_FULL=true
+
 EXPOSE 3000
