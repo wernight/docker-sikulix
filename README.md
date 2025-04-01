@@ -15,7 +15,7 @@ Contains latest official **SikuliX** inside a container based on **KasmVNC**.
 
 Simplest usage is:
 
-    $ docker run --name sikulix --rm -it -p 3000:3000 -v $PWD/config:/config wernight/sikulix
+    $ docker run --name sikulix --rm -p 3000:3000 -v $PWD/config:/config wernight/sikulix
 
 Once started, open http://localhost:3000 to access the UI.
 
@@ -35,12 +35,19 @@ Comes preinstalled with:
 
   - SikuliX (duh!)
   - **Firefox** web browser pre-installed.
-  - **scrcpy** (and ADB) to remote control an Android device:
-     1. Enable USB Debugging (in Developer Options, tap "Build number" 7 times in Settings → About Phone).
-     2. Either:
-          - [Lower latency] Start with additional Docker argument `--device /dev/bus/usb:/dev/bus/usb` (if it fails try `--privileged --security-opt seccomp=unconfined --security-opt label=disable`).
-          - [Less permissions] Run `adb tcpip 555a && adb connect <DEVICE_IP>:55555`.
-     3. From within the container, run: `scrcpy --stay-awake  --turn-screen-off` (possibly preceeded by `adb connect <DEVICE_IP>:5555`).
+  - **scrcpy** (and ADB) to remote control an Android device (see section).
+
+### Control an Android device
+
+ 1. On the Android device: Enable USB Debugging (in Developer Options, tap "Build number" 7 times in Settings → About Phone).
+ 1. Start this container and either:
+      - [Lower latency] Start with additional Docker argument `--device /dev/bus/usb:/dev/bus/usb` (if it fails try `--privileged --security-opt seccomp=unconfined --security-opt label=disable`).
+      - [Less permissions] Install ADB on your host machine and run `adb tcpip 5555`.
+ 1. Inside the container (i.e. a running instance of this image), run:
+    ```bash
+    # If it fails try running first "adb connect <DEVICE_IP>:5555" or add "--tcp=<DEVICE_IP>:5555" argument to scrcpy.
+    scrcpy --stay-awake --turn-screen-off
+    ```
 
 ### Run advanced/headless
 
