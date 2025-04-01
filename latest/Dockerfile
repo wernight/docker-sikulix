@@ -8,6 +8,7 @@ RUN set -x \
         default-jre \
         libopencv-highgui406t64 \
         libtesseract5 \
+        at-spi2-core \
         libxft2 \
         wmctrl \
         xdotool \
@@ -27,6 +28,20 @@ ENV TITLE=SikuliX
 
 # Autostart and menus.
 COPY /root /
+
+# Tessereact (OCR used by SikuliX when available).
+RUN set -x \
+ && apt-get update \
+ && apt-get install -y \
+        tesseract-ocr \
+        tesseract-ocr-eng \
+        tesseract-ocr-osd \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* \
+ && tesseract --version
+
+# The latest Tess4J (Java wrapper for Tesseract) was
+# downloaded from https://tess4j.sourceforge.net and placed under /opt/.
 
 # Optional applications.
 # Firefox, fork of https://github.com/linuxserver/docker-firefox/blob/master/Dockerfile
@@ -48,6 +63,28 @@ RUN set -x \
         scrcpy \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/*
+
+# SimpleScreenRecorder: Useful to capture the test or a demo.
+RUN set -x \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+        simplescreenrecorder \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/*
+
+# key-mon
+RUN set -x \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+        pipx \
+        git \
+        python3-xlib \
+        python3-gi \
+        python3-gi-cairo \
+        gir1.2-gtk-3.0 \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* \
+ && pipx install --system-site-packages "git+https://github.com/scottkirkwood/key-mon"
 
 # When using SikuliX we often swap betwen apps.
 # It's easier without auto-fullscreen.

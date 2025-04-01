@@ -36,8 +36,12 @@ The simplest is to then have your application also run from within that X11 virt
 Comes preinstalled with:
 
   - SikuliX (duh!)
+  - **Tessereact** used by SikuliX for OCR (you may want to set `Settings.OcrLanguage = "eng"` in your script).
+      - WARNING: Currently giving an error: "BROWSE action is not supported".
   - **Firefox** web browser pre-installed.
   - **scrcpy** (and ADB) to remote control an Android device (see section).
+  - **SimpleScreenRecorder** to record the screen (either for a demo or to see what it did afterwards).
+  - **key-mon** to display key strokes.
 
 ### Control an Android device
 
