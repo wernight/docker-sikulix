@@ -25,7 +25,7 @@ $ docker run --name sikulix --rm -p 3000:3000 -v $PWD/config:/config wernight/si
 ```yaml
 services:
   sikulix:
-    image: wernight/sikulix
+    image: docker.io/wernight/sikulix
     ports:
       - 3000:3000
     volumes:
@@ -67,6 +67,8 @@ Comes preinstalled with:
 
 ### Control an Android device
 
+In general:
+
  1. On the Android device: Enable USB Debugging (in Developer Options, tap "Build number" 7 times in Settings → About Phone).
  1. Start this container and either:
       - [Lower latency] Start with additional Docker argument `--device /dev/bus/usb:/dev/bus/usb` (if it fails try `--privileged --security-opt seccomp=unconfined --security-opt label=disable`).
@@ -77,6 +79,46 @@ Comes preinstalled with:
     scrcpy --stay-awake --turn-screen-off
     ```
 
+If you want to run an Android emulator, check out:
+
+  - https://github.com/google/android-emulator-container-scripts
+  - https://github.com/budtmo/docker-android
+
+... the simplest if you have KVM on your system, is:
+
+ 1. Generate a key by running inside the SikuliX container:
+    ```bash
+    mkdir -p ~/.android
+    adb keygen ~/.android/adbkey
+    cat ~/.android/adbkey
+    ```
+ 1. Create/update your `docker-compose.yml` to be like:
+    ```yaml
+    services:
+      sikulix:
+        image: docker.io/wernight/sikulix
+        ports:
+          - 3000:3000
+        volumes:
+          - ./config:/config
+        links:
+          - android
+      # https://github.com/google/android-emulator-container-scripts
+      android:
+        image: us-docker.pkg.dev/android-emulator-268719/images/30-google-x64:30.1.2
+        environment:
+          ADBKEY: |
+            -----BEGIN PRIVATE KEY-----
+            ... YOUR KEY HERE
+            -----END PRIVATE KEY-----
+        devices:
+          - /dev/kvm
+    ```
+ 1. Start it all up and from the container running SikuliX simply execute in a terminal:
+    ```bash
+    $ adb connect android:5555
+    $ scrcpy
+    ```
 
 ### Run advanced/headless
 
