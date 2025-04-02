@@ -15,11 +15,24 @@ Contains latest official **SikuliX** inside a container based on **KasmVNC**.
 
 Simplest usage is:
 
-    $ docker run --name sikulix --rm -p 3000:3000 -v $PWD/config:/config wernight/sikulix
+
+```bash
+$ docker run --name sikulix --rm -p 3000:3000 -v $PWD/config:/config wernight/sikulix
+```
+
+... or using Docker Compose:
+
+```yaml
+services:
+  sikulix:
+    image: wernight/sikulix
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config:/config
+```
 
 Once started, open http://localhost:3000 to access the UI.
-
-Tip: After resizing the browser window (especially when elarging it), restart SikuliX so that it takes the entire screen area.
 
 See [SikuliX official documentation](https://sikulix.github.io/docs) for the scripting language.
 
@@ -35,13 +48,22 @@ The simplest is to then have your application also run from within that X11 virt
 
 Comes preinstalled with:
 
-  - SikuliX (duh!)
+  - **SikuliX** v2.0.6 SNAPSHOT
   - **Tessereact** used by SikuliX for OCR (you may want to set `Settings.OcrLanguage = "eng"` in your script).
-      - WARNING: Currently giving an error: "BROWSE action is not supported".
   - **Firefox** web browser pre-installed.
   - **scrcpy** (and ADB) to remote control an Android device (see section).
   - **SimpleScreenRecorder** to record the screen (either for a demo or to see what it did afterwards).
   - **key-mon** to display key strokes.
+
+
+## Tips
+
+  - After resizing the browser window (especially when elarging it), restart SikuliX so that it takes the entire screen area.
+  - Middle click the title bar to switch to the app under the current window (especially useful when maximized).
+  - Right click an empty space on the desktop to start the browser or other applications.
+  - Change the screenshot shortcut (default is Ctrl-Shift-2) in SikuliX preferences to something like Ctrl-Shift-S to avoid clashing with KasmVNC shortcuts.
+  - After downloading a new version of this image, consider clearing `config/.config/openbox/` so as to fetch the latest changes which a else stored on `/defaults/`.
+
 
 ### Control an Android device
 
@@ -49,11 +71,12 @@ Comes preinstalled with:
  1. Start this container and either:
       - [Lower latency] Start with additional Docker argument `--device /dev/bus/usb:/dev/bus/usb` (if it fails try `--privileged --security-opt seccomp=unconfined --security-opt label=disable`).
       - [Less permissions] Install ADB on your host machine and run `adb tcpip 5555`.
- 1. Inside the container (i.e. a running instance of this image), run:
+ 1. Inside the container start the "scrcpy (console)" shortcut or execute:
     ```bash
     # If it fails try running first "adb connect <DEVICE_IP>:5555" or add "--tcp=<DEVICE_IP>:5555" argument to scrcpy.
     scrcpy --stay-awake --turn-screen-off
     ```
+
 
 ### Run advanced/headless
 
@@ -78,15 +101,6 @@ Keep in mind that to forward X you'll need:
   * Possibly forward and mount `XAUTHORITY` or `/tmp/.X11-unix` (as read-only).
 
 Note: Here we run as `root` to make it simpler, but you should avoid it (for security). Add `--user` flag and run as any user you want, like any random integer in [2000-32000] as long as that user has read access to your mounted files, and it's the same as the one running X11 (i.e. Xvfb).
-
-
-## Tips
-
-  - Middle click the title bar to switch to the app under the current window (especially useful when maximized).
-  - Right click an empty space on the desktop to start the browser or other applications.
-  - Avoid scaling KasmVNC window beyond 1280x768 as screenshots will get cropped.
-  - Avoid using manual naming in SikuliX (pop up won't show up after the first time).
-  - Change the screenshot shortcut (default is Ctrl-Shift-2) in SikuliX preferences to something like Ctrl-Shift-S.
 
 
 ## Feedbacks

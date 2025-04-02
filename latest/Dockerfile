@@ -17,12 +17,11 @@ RUN set -x \
 
 # Download SikuliX.
 # http://www.sikulix.com/
-# https://raiman.github.io/SikuliX1/downloads.html
-# $ curl -L https://launchpad.net/sikuli/sikulix/ | grep -Po '(?<=href=")https://launchpad.net/sikuli/[^"]+?sikulixide-[0-9.]+\-lux.jar' | head -n1
-ARG SIKULIX_DOWNLOAD_URL="https://launchpad.net/sikuli/sikulix/2.0.5/+download/sikulixide-2.0.5-lux.jar"
+# https://github.com/RaiMan/SikuliX1
+ARG SIKULIX_DOWNLOAD_URL="https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&g=com.sikulix&a=sikulixidelux&v=2.0.6-SNAPSHOT&e=jar"
 
 RUN mkdir /opt/sikulix \
- && curl -L -o /opt/sikulix/sikulix.jar $SIKULIX_DOWNLOAD_URL
+ && curl -L -o /opt/sikulix/sikulix.jar "$SIKULIX_DOWNLOAD_URL"
 
 ENV TITLE=SikuliX
 

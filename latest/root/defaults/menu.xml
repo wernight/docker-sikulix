@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/3.4/menu">
     <menu id="root-menu" label="MENU">
-        <item label="xterm" icon="/usr/share/pixmaps/xterm-color_48x48.xpm"><action name="Execute"><command>/usr/bin/xterm</command></action></item>
         <item label="SikuliX" icon="/usr/share/icons/hicolor/256x256/apps/sikulix.png"><action name="Execute"><command>/usr/bin/sikulix</command></action></item>
-        <item label="FireFox" icon="/usr/share/icons/hicolor/48x48/apps/firefox.png"><action name="Execute"><command>/usr/bin/firefox</command></action></item>
+        <separator />
+        <item label="xterm" icon="/usr/share/pixmaps/xterm-color_48x48.xpm"><action name="Execute"><command>/usr/bin/xterm</command></action></item>
+        <item label="Firefox" icon="/usr/share/icons/hicolor/48x48/apps/firefox.png"><action name="Execute"><command>/usr/bin/firefox</command></action></item>
         <item label="SimpleScreenRecorder" icon="/usr/share/icons/hicolor/48x48/apps/simplescreenrecorder.png"><action name="Execute"><command>/usr/bin/simplescreenrecorder</command></action></item>
         <item label="key-mon" icon="/config/.local/share/pipx/venvs/key-mon/share/icons/hicolor/key-mon.png"><action name="Execute"><command>/config/.local/bin/key-mon</command></action></item>
+        <item label="SimpleScreenRecorder" icon="/usr/share/icons/hicolor/32x32/apps/simplescreenrecorder.png"><action name="Execute"><command><![CDATA[simplescreenrecorder --logfile]]></command></action></item>
+        <item label="scrcpy (console)" icon="/usr/share/icons/hicolor/256x256/apps/scrcpy.png"><action name="Execute"><command><![CDATA[x-terminal-emulator -e /bin/bash --norc --noprofile -i -c '"$SHELL" -i -c scrcpy --stay-awake --turn-screen-off || read -p "Press any key to quit..."']]></command></action></item>
     </menu>
 </openbox_menu>
